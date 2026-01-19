@@ -1,0 +1,23 @@
+body {
+    font-family: system-ui, -apple-system, Arial, sans-serif;
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .muted { opacity: 0.8; }
+  
+  .disclaimer {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  a { text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
