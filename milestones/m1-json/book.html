@@ -64,14 +64,21 @@
 
       $.getJSON(jsonUrl)
         .done(function (data) {
-          // Google Books JSON usually has items[0].volumeInfo
-          const item = data.items && data.items.length ? data.items[0] : null;
-          const v = item && item.volumeInfo ? item.volumeInfo : null;
+          // Handle both possible formats:
+          // 1) data.items[0].volumeInfo (search response style)
+          // 2) data.volumeInfo (single volume style)
+          let v = null;
 
-          if (!v) {
-            $("#status").text("Could not find book details in the JSON file.");
-            return;
+          if (data && data.volumeInfo) {
+            v = data.volumeInfo;
+          } else if (data && data.items && data.items.length && data.items[0].volumeInfo) {
+            v = data.items[0].volumeInfo;
           }
+
+if (!v) {
+  $("#status").text("Could not find book details in the JSON file (volumeInfo not found).");
+  return;
+}
 
           $("#title").text(v.title || "No title available");
 
