@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy PHP app to Azure Web App - TrialSiteforIT4403Spring2026
+name: Deploy static site to Azure Web App - TrialSiteforIT4403Spring2026
 
 on:
   push:
@@ -57,4 +57,5 @@ jobs:
           app-name: 'TrialSiteforIT4403Spring2026'
           slot-name: 'Production'
           package: .
+
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_18458EC020DB4E1EABBC65A2D3D1A419 }}
