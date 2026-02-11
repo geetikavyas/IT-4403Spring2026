@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Milestone 1 - Book Search Results</title>
+
+  <!-- Embedded CSS (required) -->
+  <style>
+    body { margin:0; font-family: Arial, Helvetica, sans-serif; line-height:1.6; background:#fff; color:#222; }
+    .container { max-width: 900px; margin: 40px auto; padding: 20px; }
+    h1 { color:#003366; margin-bottom: 10px; }
+    h2 { color:#005a9c; margin-top: 24px; border-bottom:2px solid #e0e0e0; padding-bottom:6px; }
+    a { color:#005a9c; text-decoration: underline; }
+    a:hover, a:focus { color:#003366; }
+    .card { border:1px solid #ddd; background:#f9f9f9; border-radius:6px; padding:16px; margin: 14px 0; }
+    .row { display:flex; gap:16px; flex-wrap:wrap; }
+    .thumb img { width: 120px; height:auto; border:1px solid #ddd; border-radius:4px; }
+    .meta { flex: 1; min-width: 220px; }
+    .meta p { margin: 6px 0; }
+    .small { color:#555; font-size: 0.95rem; }
+  </style>
+
+  <!-- jQuery (allowed) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Milestone 1: Book Search Results</h1>
+    <p><a href="../../index.html">Back to Project Home</a></p>
+
+    <div id="status" class="card" role="status" aria-live="polite">
+      Loading search results...
+    </div>
+
+    <h2 id="resultsHeading" style="display:none;">Results</h2>
+    <div id="results"></div>
+
+    <footer>
+      <p class="small"><strong>Disclaimer:</strong> This is a student website created for course projects in IT 4403 at Kennesaw State University. Content is for educational purposes only.</p>
+    </footer>
+  </div>
+
+  <!-- Embedded JS (required) -->
+  <script>
+    $(function () {
+      const jsonUrl = "google-books-search.json";
+
+      $.getJSON(jsonUrl)
+        .done(function (data) {
+          const items = data.items || [];
+
+          if (!items.length) {
+            $("#status").text("No books found in the JSON file.");
+            return;
+          }
+
+          $("#status").hide();
+          $("#resultsHeading").show();
+
+          // LOOP required for search results
+          items.forEach(function (item, index) {
+            const v = item.volumeInfo || {};
+            const title = v.title || "No title";
+            const authors = v.authors ? v.authors.join(", ") : "Not available";
+            const published = v.publishedDate || "Not available";
+            const publisher = v.publisher || "Not available";
+            const preview = v.previewLink || "";
+            const thumb = v.imageLinks && v.imageLinks.thumbnail ? v.imageLinks.thumbnail : "";
+
+            const safeId = "book-" + index;
+
+            const $card = $('<div class="card" id="' + safeId + '"></div>');
+            const $row = $('<div class="row"></div>');
+
+            const $thumb = $('<div class="thumb"></div>');
+            if (thumb) {
+              $thumb.append('<img src="' + thumb + '" alt="Book cover for ' + title + '">');
+            } else {
+              $thumb.append('<p class="small">No cover image.</p>');
+            }
+
+            const $meta = $('<div class="meta"></div>');
+            $meta.append('<p><strong>Title:</strong> ' + title + '</p>');
+            $meta.append('<p><strong>Authors:</strong> ' + authors + '</p>');
+            $meta.append('<p><strong>Publisher:</strong> ' + publisher + '</p>');
+            $meta.append('<p><strong>Published:</strong> ' + published + '</p>');
+
+            if (preview) {
+              $meta.append('<p><strong>Preview:</strong> <a href="' + preview + '" target="_blank" rel="noopener">Open book preview</a></p>');
+            } else {
+              $meta.append('<p><strong>Preview:</strong> Not available</p>');
+            }
+
+            $row.append($thumb);
+            $row.append($meta);
+            $card.append($row);
+
+            $("#results").append($card);
+          });
+        })
+        .fail(function () {
+          $("#status").text("Error loading JSON. Check the file name and path.");
+        });
+    });
+  </script>
+</body>
+</html>
