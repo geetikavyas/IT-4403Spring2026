@@ -45,7 +45,7 @@
   <!-- Embedded JS (required) -->
   <script>
     $(function () {
-      const jsonUrl = "google-books-search.json";
+      const jsonUrl = "google-books-search.json"; //****this code is loading a static JSON file that already contains search results ***
 
       $.getJSON(jsonUrl)
         .done(function (data) {
@@ -60,7 +60,7 @@
           $("#resultsHeading").show();
 
           // LOOP required for search results
-          items.forEach(function (item, index) {
+          items.forEach(function (item, index) { //*** loops through the results already inside that JSON file ***
             const v = item.volumeInfo || {};
             const title = v.title || "No title";
             const authors = v.authors ? v.authors.join(", ") : "Not available";
