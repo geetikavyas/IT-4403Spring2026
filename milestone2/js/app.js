@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var apiKey = "AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY";   // <-- put your key inside quotes
+    var apiKey = "PASTE_YOUR_API_KEY_HERE";
 
     $("#btnSearch").click(function () {
 
@@ -17,14 +17,35 @@ $(document).ready(function () {
             "&maxResults=40" +
             "&key=" + apiKey;
 
-        $.getJSON(apiUrl)
-            .done(function (data) {
-                console.log(data);
-            })
-            .fail(function (xhr) {
-                console.log("Error:", xhr.status, xhr.statusText);
-                alert("Google Books API error: " + xhr.status);
-            });
+        $.getJSON(apiUrl, function (data) {
+
+            $("#results").empty();
+
+            if (data.items) {
+
+                data.items.forEach(function (book) {
+
+                    var title = book.volumeInfo.title || "No title";
+                    var bookId = book.id;
+
+                    var image = "";
+                    if (book.volumeInfo.imageLinks &&
+                        book.volumeInfo.imageLinks.thumbnail) {
+                        image = book.volumeInfo.imageLinks.thumbnail;
+                    }
+
+                    var bookHtml =
+                        "<div>" +
+                        "<a href='details.html?id=" + bookId + "'>" + title + "</a><br>" +
+                        (image ? "<img src='" + image + "'>" : "") +
+                        "</div><hr>";
+
+                    $("#results").append(bookHtml);
+                });
+
+            }
+
+        });
 
     });
 
