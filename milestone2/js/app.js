@@ -1,3 +1,4 @@
+console.log("app.js loaded");
 $(document).ready(function () {
 
     $("#btnSearch").click(function () {
