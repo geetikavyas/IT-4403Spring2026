@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  var apiKey = "PASTE_YOUR_API_KEY_HERE";
+  var apiKey = "AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY";
 
   $("#btnSearch").click(function () {
 
