@@ -1,52 +1,59 @@
 $(document).ready(function () {
 
-    var apiKey = "PASTE_YOUR_API_KEY_HERE";
+  var apiKey = "PASTE_YOUR_API_KEY_HERE";
 
-    $("#btnSearch").click(function () {
+  $("#btnSearch").click(function () {
 
-        var searchTerm = $("#searchTerm").val().trim();
+    var searchTerm = $("#searchTerm").val().trim();
+    if (searchTerm === "") {
+      alert("Please enter a search term.");
+      return;
+    }
 
-        if (searchTerm === "") {
-            alert("Please enter a search term.");
-            return;
+    $("#results").html("Loading...");
+
+    var apiUrl =
+      "https://www.googleapis.com/books/v1/volumes?q=" +
+      encodeURIComponent(searchTerm) +
+      "&maxResults=40" +
+      "&key=" + apiKey;
+
+    $.getJSON(apiUrl)
+      .done(function (data) {
+
+        $("#results").empty();
+
+        if (!data.items || data.items.length === 0) {
+          $("#results").html("No results found.");
+          return;
         }
 
-        var apiUrl =
-            "https://www.googleapis.com/books/v1/volumes?q=" +
-            encodeURIComponent(searchTerm) +
-            "&maxResults=40" +
-            "&key=" + apiKey;
+        for (var i = 0; i < data.items.length; i++) {
+          var book = data.items[i];
 
-        $.getJSON(apiUrl, function (data) {
+          var title = (book.volumeInfo && book.volumeInfo.title) ? book.volumeInfo.title : "No title";
+          var bookId = book.id;
 
-            $("#results").empty();
+          var img = "";
+          if (book.volumeInfo &&
+              book.volumeInfo.imageLinks &&
+              book.volumeInfo.imageLinks.thumbnail) {
+            img = book.volumeInfo.imageLinks.thumbnail;
+          }
 
-            if (data.items) {
+          var html =
+            "<div>" +
+              "<a href='details.html?id=" + bookId + "'>" + title + "</a><br>" +
+              (img ? "<img src='" + img + "'>" : "") +
+            "</div><hr>";
 
-                data.items.forEach(function (book) {
+          $("#results").append(html);
+        }
+      })
+      .fail(function (xhr) {
+        $("#results").html("API error: " + xhr.status);
+      });
 
-                    var title = book.volumeInfo.title || "No title";
-                    var bookId = book.id;
-
-                    var image = "";
-                    if (book.volumeInfo.imageLinks &&
-                        book.volumeInfo.imageLinks.thumbnail) {
-                        image = book.volumeInfo.imageLinks.thumbnail;
-                    }
-
-                    var bookHtml =
-                        "<div>" +
-                        "<a href='details.html?id=" + bookId + "'>" + title + "</a><br>" +
-                        (image ? "<img src='" + image + "'>" : "") +
-                        "</div><hr>";
-
-                    $("#results").append(bookHtml);
-                });
-
-            }
-
-        });
-
-    });
+  });
 
 });
