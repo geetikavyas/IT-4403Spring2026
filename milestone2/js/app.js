@@ -14,7 +14,8 @@ boks API error 429$(document).ready(function () {
     var apiUrl =
       "https://www.googleapis.com/books/v1/volumes?q=" +
       encodeURIComponent(searchTerm) +
-      "&maxResults=40";
+      "&maxResults=40" +
+      "&key=" + AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY;
 
     $.getJSON(apiUrl)
       .done(function (data) {
