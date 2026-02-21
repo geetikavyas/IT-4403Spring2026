@@ -1,4 +1,4 @@
-$(document).ready(function () {
+boks API error 429$(document).ready(function () {
 
   $("#btnSearch").click(function () {
 
