@@ -40,8 +40,9 @@ $(document).ready(function () {
 
       })
       .fail(function (xhr) {
-        $("#results").html("API error: " + xhr.status);
-      });
+  $("#results").html("API error: " + xhr.status + " " + xhr.statusText);
+  console.log("FULL ERROR:", xhr.responseText);
+});
 
   });
 
