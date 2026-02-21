@@ -1,3 +1,4 @@
+console.log("app.js LOADED");
 $(document).ready(function () {
 
   var apiKey = "AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY";  // keep your real key here
