@@ -1,59 +1,78 @@
 $(document).ready(function () {
 
-  var apiKey = "AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY";
+    var apiKey = "AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY";
+    var allBooks = [];
+    var resultsPerPage = 10;
 
-  $("#btnSearch").click(function () {
+    $("#btnSearch").click(function () {
 
-    var searchTerm = $("#searchTerm").val().trim();
-    if (searchTerm === "") {
-      alert("Please enter a search term.");
-      return;
+        var searchTerm = $("#searchTerm").val().trim();
+        if (searchTerm === "") {
+            alert("Please enter a search term.");
+            return;
+        }
+
+        var apiUrl =
+            "https://www.googleapis.com/books/v1/volumes?q=" +
+            encodeURIComponent(searchTerm) +
+            "&maxResults=40" +
+            "&key=" + apiKey;
+
+        $.getJSON(apiUrl, function (data) {
+
+            allBooks = data.items || [];
+            createPagination();
+            displayPage(1);
+
+        });
+
+    });
+
+    function createPagination() {
+        $("#pageSelect").empty();
+
+        var totalPages = Math.ceil(allBooks.length / resultsPerPage);
+
+        for (var i = 1; i <= totalPages; i++) {
+            $("#pageSelect").append(
+                "<option value='" + i + "'>" + i + "</option>"
+            );
+        }
     }
 
-    $("#results").html("Loading...");
+    $("#pageSelect").change(function () {
+        var pageNumber = parseInt($(this).val());
+        displayPage(pageNumber);
+    });
 
-    var apiUrl =
-      "https://www.googleapis.com/books/v1/volumes?q=" +
-      encodeURIComponent(searchTerm) +
-      "&maxResults=40" +
-      "&key=" + apiKey;
-
-    $.getJSON(apiUrl)
-      .done(function (data) {
+    function displayPage(pageNumber) {
 
         $("#results").empty();
 
-        if (!data.items || data.items.length === 0) {
-          $("#results").html("No results found.");
-          return;
-        }
+        var start = (pageNumber - 1) * resultsPerPage;
+        var end = start + resultsPerPage;
 
-        for (var i = 0; i < data.items.length; i++) {
-          var book = data.items[i];
+        var booksToShow = allBooks.slice(start, end);
 
-          var title = (book.volumeInfo && book.volumeInfo.title) ? book.volumeInfo.title : "No title";
-          var bookId = book.id;
+        booksToShow.forEach(function (book) {
 
-          var img = "";
-          if (book.volumeInfo &&
-              book.volumeInfo.imageLinks &&
-              book.volumeInfo.imageLinks.thumbnail) {
-            img = book.volumeInfo.imageLinks.thumbnail;
-          }
+            var title = book.volumeInfo.title || "No title";
+            var bookId = book.id;
 
-          var html =
-            "<div>" +
-              "<a href='details.html?id=" + bookId + "'>" + title + "</a><br>" +
-              (img ? "<img src='" + img + "'>" : "") +
-            "</div><hr>";
+            var image = "";
+            if (book.volumeInfo.imageLinks &&
+                book.volumeInfo.imageLinks.thumbnail) {
+                image = book.volumeInfo.imageLinks.thumbnail;
+            }
 
-          $("#results").append(html);
-        }
-      })
-      .fail(function (xhr) {
-        $("#results").html("API error: " + xhr.status);
-      });
+            var bookHtml =
+                "<div>" +
+                "<a href='details.html?id=" + bookId + "'>" + title + "</a><br>" +
+                (image ? "<img src='" + image + "'>" : "") +
+                "</div><hr>";
 
-  });
+            $("#results").append(bookHtml);
+        });
+    }
 
 });
