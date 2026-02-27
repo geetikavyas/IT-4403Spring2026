@@ -1,7 +1,7 @@
 console.log("bookshelf.js LOADED");
 
 $(document).ready(function () {
-  var apiKey = "AIzaSyDVf75MgxioDkvXiF5pq5JjPEJctEb9ONY";
+  var apiKey = "AIzaSyCIXZssIic1z2odLF_9gmFZI7bklRUFZ98";
   var userId = "117733359037709170153";
 
   var $results = $("#bookshelfResults");
