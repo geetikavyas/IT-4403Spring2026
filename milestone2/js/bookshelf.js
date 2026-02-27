@@ -48,8 +48,11 @@ $(document).ready(function () {
       html += '</div>';
       $results.html(html);
     })
-    .fail(function (xhr) {
-      console.log("Error details:", xhr.responseText);
-      $results.html("<p>Error: Could not retrieve bookshelf. Ensure your shelf is set to 'Public' in the shelf settings.</p>");
+    .fail(function (xhr, status, error) {
+    console.log("status:", status);
+    console.log("error:", error);
+    console.log("responseText:", xhr.responseText);
+    console.log("final URL:", volumesUrl);
+    $results.html("<p>Error: Could not retrieve bookshelf. Check console for details.</p>");
     });
 });
