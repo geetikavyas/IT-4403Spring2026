@@ -1,4 +1,4 @@
-const apiKey = "YOUR_API_KEY_HERE";
+const apiKey = "AIzaSyCIXZssIic1z2odLF_9gmFZI7bklRUFZ98";
 
 const volumeIds = [
   "fnmwBgAAQBAJ",
