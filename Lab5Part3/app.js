@@ -1,6 +1,6 @@
 const results = document.getElementById("results");
 
-const API_KEY = "PASTE_YOUR_KEY_HERE";  // use your key
+const API_KEY = "AIzaSyDVf75MgxioDkvXiF5pq5JjPEJctEb9ONY";  // use your key
 
 const volumeIDs = [
   "vJkF6-ZyxsEC",
