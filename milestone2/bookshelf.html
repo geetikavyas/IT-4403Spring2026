@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>My Bookshelf</title>
+    <meta charset="UTF-8">
+    <title>My Google Bookshelf</title>
 </head>
 <body>
 
-  <h1>My Bookshelf</h1>
-  <p><a href="index.html">← Back to Search</a></p>
+    <h1>My Google Bookshelf</h1>
 
-  <div id="bookshelfResults">Loading...</div>
+    <p>This page loads my saved books using the Google Books API.</p>
 
-  <!-- jQuery first -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <!-- then your script -->
-  <script src="js/bookshelf.js"></script>
+    <!-- Books will appear here -->
+    <div id="books"></div>
+
+    <!-- Link your external JavaScript file -->
+    <script src="bookshelf.js"></script>
+
 </body>
 </html>
-
