@@ -2,7 +2,7 @@ console.log("bookshelf.js LOADED");
 
 $(document).ready(function () {
   var apiKey = "AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY";
-  var userId = "earN2ZVg1YeMSRPndjvmwA";
+  var userId = "cbRUVHEQnPG3YcfPxNWIew";
 
   var $results = $("#bookshelfResults");
   $results.html("Loading your public bookshelves...");
