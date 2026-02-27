@@ -3,7 +3,7 @@ console.log("bookshelf.js LOADED");
 $(document).ready(function () {
 
   // Use the same API key you used in app.js
-  var apiKey = "AIzaSyAaXzebLvsKc4q66a4Ex0cux_FU-lrAalY";
+  var apiKey = "AIzaSyDVf75MgxioDkvXiF5pq5JjPEJctEb9ONY";
 
   // From your Google Books shelf URL:
   // https://books.google.com/books?uid=117733359037709170153&as_coll=0&...
