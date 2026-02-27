@@ -6,7 +6,7 @@ $(document).ready(function () {
   var userId = "117733359037709170153";
   
   // Replace this with the 'as_coll' number from your Google Books URL
-  var shelfId = "1001"; 
+  var shelfId = "0"; 
 
   var $results = $("#bookshelfResults");
   $results.html("<p>Loading your public bookshelf...</p>");
