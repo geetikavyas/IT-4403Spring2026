@@ -1,3 +1,5 @@
+console.log("bookshelf.js loaded!");
+document.getElementById("books").innerHTML = "JS is running ✅";
 const apiKey = "AIzaSyCIXZssIic1z2odLF_9gmFZI7bklRUFZ98";
 
 const volumeIds = [
