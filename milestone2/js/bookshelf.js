@@ -1,8 +1,8 @@
 $(document).ready(function () {
   // 1. CONFIGURATION
   var apiKey = "AIzaSyDVf75MgxioDkvXiF5pq5JjPEJctEb9ONY";
-  var userId = "cbRUVHEQnPG3YcfPxNWIew"; // Extracted from your URL
-  var shelfId = "1001"; // Default for your custom public shelf
+  var userId = "c11773335903770917015"; // Extracted from your URL
+  var shelfId = "0"; // Default for your custom public shelf
 
   var $results = $("#bookshelfResults");
   $results.html("<p>Loading your public bookshelf...</p>");
