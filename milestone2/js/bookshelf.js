@@ -1,1 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Bookshelf</title>
+</head>
+<body>
 
+  <h1>My Bookshelf</h1>
+  <p><a href="index.html">← Back to Search</a></p>
+
+  <div id="bookshelfResults">Loading...</div>
+
+  <!-- jQuery first -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- then your script -->
+  <script src="bookshelf.js"></script>
+</body>
+</html>
