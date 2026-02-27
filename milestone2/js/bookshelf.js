@@ -1,5 +1,5 @@
 // Instead of using users/{userId}/bookshelves/{shelfId}/volumes
-var apiKey = "YOUR_API_KEY";
+var apiKey = "AIzaSyCIXZssIic1z2odLF_9gmFZI7bklRUFZ98";
 
 // A few volume IDs copied from Google Books URLs for books on your shelf:
 var volumeIds = [
