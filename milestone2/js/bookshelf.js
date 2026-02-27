@@ -1,3 +1,4 @@
+document.getElementById("bookshelfResults").innerHTML = "bookshelf.js is running...";
 console.log("bookshelf.js LOADED");
 
 $(document).ready(function () {
