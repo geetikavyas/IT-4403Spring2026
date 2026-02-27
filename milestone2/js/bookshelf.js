@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // 1. CONFIGURATION
-  var apiKey = "AIzaSyDVf75MgxioDkvXiF5pq5JjPEJctEb9ONY";
+  var apiKey = "AIzaSyCIXZssIic1z2odLF_9gmFZI7bklRUFZ98";
   var userId = "c11773335903770917015"; // Extracted from your URL
   var shelfId = "0"; // Default for your custom public shelf
 
