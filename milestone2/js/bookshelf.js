@@ -66,9 +66,14 @@ $(document).ready(function () {
       $results.html(html);
     })
     .fail(function (xhr) {
-      console.log("API Error:", xhr.responseText);
+      console.log("Full Error Object:", xhr);
+      var errorMsg = "Unknown Error";
+      if (xhr.responseJSON && xhr.responseJSON.error) {
+        errorMsg = xhr.responseJSON.error.message;
+      }
       $results.html(
-        "<p>Error retrieving bookshelf. Please check your Shelf ID and ensure it is set to Public.</p>"
+        "<p><strong>Google API Error:</strong> " + errorMsg + "</p>" +
+        "<p>Current Shelf ID: " + shelfId + "</p>"
       );
     });
 });
