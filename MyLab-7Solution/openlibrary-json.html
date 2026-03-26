@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenLibrary Book Search</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <h1>OpenLibrary Book Search</h1>
+
+    <input type="text" id="txtBook" placeholder="Enter book title" />
+    <button id="btnSearch">Search</button>
+
+    <div id="result"></div>
+
+    <script>
+    $(document).ready(function () {
+        $("#btnSearch").click(function () {
+            var term = $("#txtBook").val();
+
+            $("#result").html("Searching...");
+
+            $.getJSON("https://openlibrary.org/search.json?title=" + term, function (data) {
+                $("#result").html("");
+
+                $.each(data.docs.slice(0, 10), function (index, book) {
+
+                    var cover = book.cover_i 
+                        ? "https://covers.openlibrary.org/b/id/" + book.cover_i + "-S.jpg" 
+                        : "";
+
+                    $("#result").append(
+                        "<p>" +
+                        (cover ? "<img src='" + cover + "'><br>" : "") +
+                        "<b>Title:</b> " + (book.title || "N/A") + "<br>" +
+                        "<b>Author:</b> " + (book.author_name ? book.author_name.join(", ") : "N/A") + "<br>" +
+                        "<b>Year:</b> " + (book.first_publish_year || "N/A") + "<br>" +
+                        "<b>Publisher:</b> " + (book.publisher ? book.publisher[0] : "N/A") +
+                        "</p><hr>"
+                    );
+                });
+            });
+        });
+    });
+    </script>
+</body>
+</html>

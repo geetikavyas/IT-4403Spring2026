@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bing Suggest</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <h1>Bing Search Suggest</h1>
+
+    <input type="text" id="txtSuggest" placeholder="Type a word" />
+    <button id="btnSuggest">Get Suggestions</button>
+
+    <div id="responseStatus"></div>
+
+    <script>
+    $(document).ready(function () {
+        $("#btnSuggest").click(function () {
+            var term = $("#txtSuggest").val();
+
+            // Debug line
+            $("#responseStatus").html("You searched: " + term + "<hr>");
+
+            $.getJSON(
+                "https://api.bing.com/osjson.aspx?query=" + term + "&JsonType=callback&JsonCallback=?&_=" + new Date().getTime(),
+                function (jsonData) {
+                    $.each(jsonData[1], function(index, item) {
+                        $("#responseStatus").append(item + "<br>");
+                    });
+                }
+            );
+        });
+    });
+    </script>
+    
+</body>
+</html>
