@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milestone 3 - TMDB AJAX Movie App</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Milestone 3: TMDB AJAX Movie App</h1>
+    <p>Search movies, view results, and explore collections.</p>
+
+    <!-- SEARCH -->
+    <div class="panel">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Enter movie title or keyword">
+        <button id="searchBtn">Search</button>
+      </div>
+      <p class="note">Displays up to 50 results (5 pages, 10 each).</p>
+    </div>
+
+    <div class="layout">
+
+      <!-- LEFT SIDE -->
+      <div>
+
+        <!-- SEARCH RESULTS -->
+        <div class="panel">
+          <h2>Search Results</h2>
+          <div id="results" class="movie-grid"></div>
+          <div id="pagination" class="pagination"></div>
+        </div>
+
+        <!-- POPULAR -->
+        <div class="panel">
+          <h2>Popular Movies</h2>
+          <div id="collection" class="movie-grid"></div>
+        </div>
+
+        <!-- TOP RATED -->
+        <div class="panel">
+          <h2>Top Rated Movies</h2>
+          <div id="topRated" class="movie-grid"></div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE (DETAILS) -->
+      <div class="panel">
+        <h2>Movie Details</h2>
+        <div id="details">
+          <p>Select a movie to see details here.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
