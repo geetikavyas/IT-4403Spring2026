@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ZIP Lookup</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <h1>ZIP Code Lookup</h1>
+
+    <input type="text" id="txtZip" placeholder="Enter ZIP code" />
+    <button id="btnLookup">Lookup</button>
+
+    <div id="result"></div>
+<script>
+$("#btnLookup").click(function () {
+    var zip = $("#txtZip").val();
+
+    $.getJSON(
+        "https://ziptasticapi.com/" + zip + "?callback=?",
+        function (data) {
+            $("#result").html(
+                "City: " + data.city + "<br>State: " + data.state
+            );
+        }
+    );
+});
+</script>
+
+</body>
+</html>
