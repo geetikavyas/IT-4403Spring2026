@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 8 - Part 2 (Books Grid)</title>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .controls {
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 8px;
+      width: 250px;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    /* FLEXBOX GRID */
+    #results {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    /* GRID ITEMS */
+    .book {
+      width: 23%;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    .book img {
+      width: 100px;
+      height: 150px;
+      object-fit: contain;
+    }
+
+    .book h3 {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Search Books (Grid Layout)</h1>
+
+  <div class="controls">
+    <input type="text" id="keyword" placeholder="Enter keyword" value="javascript">
+    <button onclick="searchBooks()">Search</button>
+  </div>
+
+  <div id="results"></div>
+
+  <script>
+    function searchBooks() {
+      let keyword = document.getElementById("keyword").value;
+
+      $("#results").html("Loading...");
+
+      $.getJSON("https://www.googleapis.com/books/v1/volumes?q=" + keyword, function(data) {
+
+        let output = "";
+
+        if (!data.items) {
+          $("#results").html("No results found.");
+          return;
+        }
+
+        data.items.forEach(function(item) {
+          let book = item.volumeInfo;
+
+          let title = book.title || "No Title";
+          let image = book.imageLinks ? book.imageLinks.thumbnail : "https://via.placeholder.com/100x150";
+
+          output += `
+            <div class="book">
+              <img src="${image}">
+              <h3>${title}</h3>
+            </div>
+          `;
+        });
+
+        $("#results").html(output);
+      });
+    }
+
+    // auto load
+    searchBooks();
+  </script>
+
+</body>
+</html>
