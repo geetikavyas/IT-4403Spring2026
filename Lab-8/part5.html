@@ -73,13 +73,13 @@
       margin: 5px 0;
     }
 
-    /* Part 3 requirement: grid layout */
+    /* grid layout */
     .grid4 .book {
       width: 23%;
       text-align: center;
     }
 
-    /* Part 3 requirement: flow list layout */
+    /* flow list layout */
     .list .book {
       width: 100%;
       display: flex;
@@ -97,13 +97,17 @@
       flex: 1;
     }
 
-    /* Part 3 requirement: 3 items per row */
+    .list .book h3 {
+      text-align: left;
+    }
+
+    /* 3 items per row */
     .grid3 .book {
       width: 31%;
       text-align: center;
     }
 
-    /* Part 3 requirement: first item occupies whole first row */
+    /* first item occupies whole first row */
     .firstfull .book:first-child {
       width: 100% !important;
     }
@@ -134,7 +138,7 @@
 </head>
 <body>
 
-  <h1>Google Books Layout Switch Using Mustache</h1>
+  <h1>Open Library Layout Switch Using Mustache</h1>
 
   <div class="controls">
     <input type="text" id="keyword" placeholder="Enter book keyword" value="javascript">
@@ -157,7 +161,7 @@
         <div class="book-content">
           <h3>{{title}}</h3>
           <p><strong>Author:</strong> {{authors}}</p>
-          <p><strong>Publisher:</strong> {{publisher}}</p>
+          <p><strong>First Published:</strong> {{publisher}}</p>
           <p>{{description}}</p>
         </div>
       </div>
@@ -197,25 +201,26 @@
       document.getElementById("status").innerHTML = "Loading books...";
       document.getElementById("results").innerHTML = "";
 
-      $.getJSON("https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(keyword))
+      $.getJSON("https://openlibrary.org/search.json?q=" + encodeURIComponent(keyword))
         .done(function(data) {
-          if (!data.items || data.items.length === 0) {
+          if (!data.docs || data.docs.length === 0) {
             booksData = [];
             document.getElementById("status").innerHTML = "No books found.";
             document.getElementById("results").innerHTML = "";
             return;
           }
 
-          booksData = data.items.map(function(item) {
-            const info = item.volumeInfo || {};
-
+          booksData = data.docs.slice(0, 20).map(function(book) {
             return {
-              title: info.title || "No Title",
-              authors: info.authors ? info.authors.join(", ") : "Unknown Author",
-              publisher: info.publisher || "Unknown Publisher",
-              description: shortenText(info.description, 120),
-              image: info.imageLinks && info.imageLinks.thumbnail
-                ? info.imageLinks.thumbnail
+              title: book.title || "No Title",
+              authors: book.author_name ? book.author_name.join(", ") : "Unknown Author",
+              publisher: book.first_publish_year || "Unknown",
+              description: shortenText(
+                book.subject ? "Subjects: " + book.subject.slice(0, 5).join(", ") : "",
+                120
+              ),
+              image: book.cover_i
+                ? "https://covers.openlibrary.org/b/id/" + book.cover_i + "-M.jpg"
                 : "https://via.placeholder.com/100x150?text=No+Image"
             };
           });
