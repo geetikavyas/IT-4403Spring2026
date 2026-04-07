@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 8 - Part 1 (Flexbox Practice)</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    /* FLEX CONTAINER */
+    #box {
+      display: flex;
+      flex-wrap: wrap;
+      border: 2px solid red;
+      padding: 10px;
+      width: 800px;
+    }
+
+    /* FLEX ITEMS */
+    .boxitem {
+      width: 98%;   /* change this to 23% later */
+      margin: 5px;
+      height: 80px;
+      background: #e6d3a3;
+      border: 2px solid blue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Flexbox Layout Practice</h1>
+
+  <p><strong>Step 1:</strong> Flow List Layout (one item per row)</p>
+
+  <div id="box">
+    <div class="boxitem">Item 1</div>
+    <div class="boxitem">Item 2</div>
+    <div class="boxitem">Item 3</div>
+    <div class="boxitem">Item 4</div>
+    <div class="boxitem">Item 5</div>
+    <div class="boxitem">Item 6</div>
+  </div>
+
+</body>
+</html>
