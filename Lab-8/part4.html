@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lab 8 - Part 4: Google Books with Mustache</title>
+  <title>Lab 8 - Part 4: Open Library with Mustache</title>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://unpkg.com/mustache@4.2.0/mustache.min.js"></script>
 
   <style>
-    /* Part-2 was Manual HTML (string concatenation)and Part-4 was Template-based (Mustache) */
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
@@ -106,7 +105,7 @@
         <img src="{{image}}" alt="Book cover for {{title}}">
         <h3>{{title}}</h3>
         <p><strong>Author:</strong> {{authors}}</p>
-        <p><strong>Publisher:</strong> {{publisher}}</p>
+        <p><strong>First Published:</strong> {{publisher}}</p>
       </div>
     {{/books}}
   </script>
@@ -124,23 +123,21 @@
       document.getElementById("status").innerHTML = "Loading books...";
       document.getElementById("results").innerHTML = "";
 
-      $.getJSON("https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(keyword))
+      $.getJSON("https://openlibrary.org/search.json?q=" + encodeURIComponent(keyword))
         .done(function(data) {
-          if (!data.items || data.items.length === 0) {
+          if (!data.docs || data.docs.length === 0) {
             document.getElementById("status").innerHTML = "No books found.";
             document.getElementById("results").innerHTML = "";
             return;
           }
 
-          const booksData = data.items.map(function(item) {
-            const info = item.volumeInfo || {};
-
+          const booksData = data.docs.slice(0, 20).map(function(book) {
             return {
-              title: info.title || "No Title",
-              authors: info.authors ? info.authors.join(", ") : "Unknown Author",
-              publisher: info.publisher || "Unknown Publisher",
-              image: info.imageLinks && info.imageLinks.thumbnail
-                ? info.imageLinks.thumbnail
+              title: book.title || "No Title",
+              authors: book.author_name ? book.author_name.join(", ") : "Unknown Author",
+              publisher: book.first_publish_year || "Unknown",
+              image: book.cover_i
+                ? "https://covers.openlibrary.org/b/id/" + book.cover_i + "-M.jpg"
                 : "https://via.placeholder.com/100x150?text=No+Image"
             };
           });
