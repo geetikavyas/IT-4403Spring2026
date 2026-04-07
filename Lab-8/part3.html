@@ -89,6 +89,10 @@
       flex: 1;
     }
 
+    .list .book h3 {
+      text-align: left;
+    }
+
     /* grid: 3 per row */
     .grid3 .book {
       width: 31%;
@@ -103,7 +107,7 @@
 </head>
 <body>
 
-  <h1>Google Books Layout Switch</h1>
+  <h1>Open Library Layout Switch</h1>
 
   <div class="controls">
     <input type="text" id="keyword" placeholder="Enter keyword" value="javascript">
@@ -131,40 +135,47 @@
 
       $("#results").html("Loading...");
 
-      $.getJSON("https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(keyword), function(data) {
-        let output = "";
+      $.getJSON("https://openlibrary.org/search.json?q=" + encodeURIComponent(keyword))
+        .done(function(data) {
+          let output = "";
 
-        if (!data.items) {
-          $("#results").html("No results found.");
-          return;
-        }
+          if (!data.docs || data.docs.length === 0) {
+            $("#results").html("No results found.");
+            return;
+          }
 
-        data.items.forEach(function(item) {
-          let book = item.volumeInfo;
+          data.docs.slice(0, 20).forEach(function(book) {
+            let title = book.title || "No Title";
+            let authors = book.author_name ? book.author_name.join(", ") : "Unknown Author";
+            let image = book.cover_i
+              ? "https://covers.openlibrary.org/b/id/" + book.cover_i + "-M.jpg"
+              : "https://via.placeholder.com/100x150?text=No+Image";
 
-          let title = book.title || "No Title";
-          let authors = book.authors ? book.authors.join(", ") : "Unknown Author";
-          let image = book.imageLinks ? book.imageLinks.thumbnail : "https://via.placeholder.com/100x150";
-          let description = book.description ? book.description.substring(0, 120) + "..." : "No description available.";
+            let description = book.first_publish_year
+              ? "First published: " + book.first_publish_year
+              : "No description available.";
 
-          output += `
-            <div class="book">
-              <img src="${image}" alt="Book cover for ${title}">
-              <div class="book-content">
-                <h3>${title}</h3>
-                <p><strong>Author:</strong> ${authors}</p>
-                <p>${description}</p>
+            output += `
+              <div class="book">
+                <img src="${image}" alt="Book cover for ${title}">
+                <div class="book-content">
+                  <h3>${title}</h3>
+                  <p><strong>Author:</strong> ${authors}</p>
+                  <p>${description}</p>
+                </div>
               </div>
-            </div>
-          `;
+            `;
+          });
+
+          $("#results").html(output);
+
+          if (firstFullOn) {
+            $("#results").addClass("firstfull");
+          }
+        })
+        .fail(function() {
+          $("#results").html("Error loading books. Please try again.");
         });
-
-        $("#results").html(output);
-
-        if (firstFullOn) {
-          $("#results").addClass("firstfull");
-        }
-      });
     }
 
     function setFlowList() {
