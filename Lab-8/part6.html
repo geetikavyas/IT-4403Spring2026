@@ -40,16 +40,19 @@
       width: 150px;
       display: block;
       margin-bottom: 10px;
+      background: #fff;
     }
 
     /* View 2 */
     .compact-view {
       display: flex;
       gap: 15px;
+      align-items: flex-start;
     }
 
     .compact-view img {
       width: 120px;
+      background: #fff;
     }
   </style>
 </head>
@@ -71,10 +74,10 @@
 <!-- Template 1 -->
 <script id="cardTemplate" type="x-tmpl-mustache">
   <div class="card-view">
-    <img src="{{image}}">
+    <img src="{{image}}" alt="Book cover for {{title}}">
     <h2>{{title}}</h2>
     <p><b>Author:</b> {{authors}}</p>
-    <p><b>Publisher:</b> {{publisher}}</p>
+    <p><b>First Published:</b> {{publisher}}</p>
     <p>{{description}}</p>
   </div>
 </script>
@@ -82,11 +85,11 @@
 <!-- Template 2 -->
 <script id="compactTemplate" type="x-tmpl-mustache">
   <div class="compact-view">
-    <img src="{{image}}">
+    <img src="{{image}}" alt="Book cover for {{title}}">
     <div>
       <h2>{{title}}</h2>
       <p><b>Author:</b> {{authors}}</p>
-      <p><b>Publisher:</b> {{publisher}}</p>
+      <p><b>First Published:</b> {{publisher}}</p>
     </div>
   </div>
 </script>
@@ -95,36 +98,47 @@
 let currentBook = {};
 let currentView = "card";
 
-/* 🔍 SEARCH FUNCTION */
+/* SEARCH FUNCTION */
 function searchBook() {
-  let keyword = document.getElementById("keyword").value;
+  let keyword = document.getElementById("keyword").value.trim();
+
+  if (keyword === "") {
+    $("#output").html("Please enter a keyword.");
+    return;
+  }
 
   $("#output").html("Loading...");
 
-  $.getJSON("https://www.googleapis.com/books/v1/volumes?q=" + keyword, function(data) {
+  $.getJSON("https://openlibrary.org/search.json?q=" + encodeURIComponent(keyword))
+    .done(function(data) {
 
-    if (!data.items || data.items.length === 0) {
-      $("#output").html("No results found.");
-      return;
-    }
+      if (!data.docs || data.docs.length === 0) {
+        $("#output").html("No results found.");
+        return;
+      }
 
-    let book = data.items[0].volumeInfo;
+      let book = data.docs[0];
 
-    currentBook = {
-      title: book.title || "No Title",
-      authors: book.authors ? book.authors.join(", ") : "Unknown",
-      publisher: book.publisher || "Unknown",
-      description: book.description ? book.description.substring(0,150) + "..." : "No description",
-      image: book.imageLinks && book.imageLinks.thumbnail
-        ? book.imageLinks.thumbnail
-        : "https://via.placeholder.com/120x180?text=No+Image"
-    };
+      currentBook = {
+        title: book.title || "No Title",
+        authors: book.author_name ? book.author_name.join(", ") : "Unknown",
+        publisher: book.first_publish_year || "Unknown",
+        description: book.subject
+          ? "Subjects: " + book.subject.slice(0, 8).join(", ")
+          : "No description available.",
+        image: book.cover_i
+          ? "https://covers.openlibrary.org/b/id/" + book.cover_i + "-M.jpg"
+          : "https://via.placeholder.com/120x180?text=No+Image"
+      };
 
-    render();
-  });
+      render();
+    })
+    .fail(function() {
+      $("#output").html("Error loading book data.");
+    });
 }
 
-/* 🔄 RENDER FUNCTION */
+/* RENDER FUNCTION */
 function render() {
   let templateId = currentView === "card" ? "cardTemplate" : "compactTemplate";
   let template = document.getElementById(templateId).innerHTML;
@@ -136,12 +150,16 @@ function render() {
 /* BUTTONS */
 function showCard() {
   currentView = "card";
-  render();
+  if (Object.keys(currentBook).length > 0) {
+    render();
+  }
 }
 
 function showCompact() {
   currentView = "compact";
-  render();
+  if (Object.keys(currentBook).length > 0) {
+    render();
+  }
 }
 
 /* AUTO LOAD */
