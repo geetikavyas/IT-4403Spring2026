@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milestone 4 - Improved SPA UI</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Milestone 4: Improved SPA UI</h1>
+    <p>Search movies, switch layouts, view details on the same page, and explore the public bookshelf.</p>
+
+    <!-- SEARCH -->
+    <div class="panel">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Enter movie title or keyword">
+        <button id="searchBtn">Search</button>
+      </div>
+      <p class="note">Search results can be viewed in grid or list layout.</p>
+    </div>
+
+    <div class="layout">
+
+      <!-- LEFT SIDE -->
+      <div>
+
+        <!-- TAB CONTROLS -->
+        <div class="panel">
+          <div class="tab-bar">
+            <button id="showSearchTab" class="active-tab">Search Results</button>
+            <button id="showBookshelfTab">Public Bookshelf</button>
+          </div>
+        </div>
+
+        <!-- SEARCH TAB -->
+        <div id="searchTab">
+
+          <div class="panel">
+            <div class="section-header">
+              <h2>Search Results</h2>
+              <div class="view-toggle">
+                <button id="gridViewBtn" class="active-view">Grid View</button>
+                <button id="listViewBtn">List View</button>
+              </div>
+            </div>
+
+            <div id="results" class="movie-grid"></div>
+            <div id="pagination" class="pagination"></div>
+          </div>
+
+        </div>
+
+        <!-- BOOKSHELF TAB -->
+        <div id="bookshelfTab" style="display: none;">
+
+          <div class="panel">
+            <div class="section-header">
+              <h2>Popular Movies</h2>
+            </div>
+            <div id="collection" class="movie-grid"></div>
+          </div>
+
+          <div class="panel">
+            <div class="section-header">
+              <h2>Top Rated Movies</h2>
+            </div>
+            <div id="topRated" class="movie-grid"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="panel">
+        <h2>Movie Details</h2>
+        <div id="details">
+          <p>Select a movie to see details here.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MUSTACHE TEMPLATE: MOVIE CARD -->
+  <script id="movie-card-template" type="text/template">
+    {{#movies}}
+      <div class="movie-card {{viewClass}}" data-id="{{id}}">
+        <img src="{{poster}}" alt="{{title}}">
+        <div class="movie-info">
+          <p class="movie-title">{{title}}</p>
+          {{#showOverview}}
+            <p class="movie-overview">{{overview}}</p>
+          {{/showOverview}}
+        </div>
+      </div>
+    {{/movies}}
+  </script>
+
+  <!-- MUSTACHE TEMPLATE: MOVIE DETAILS -->
+  <script id="movie-details-template" type="text/template">
+    <img src="{{poster}}" alt="{{title}}">
+    <h3>{{title}}</h3>
+    <p><strong>Release Date:</strong> {{release_date}}</p>
+    <p><strong>Rating:</strong> {{vote_average}}</p>
+    <p><strong>Language:</strong> {{original_language}}</p>
+    <p><strong>Popularity:</strong> {{popularity}}</p>
+    <p><strong>Overview:</strong> {{overview}}</p>
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>
