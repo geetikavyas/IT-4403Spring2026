@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Responsive Product Layout</title>
+
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        div {
+            border: 1px solid blue;
+            margin: 5px;
+            padding: 10px;
+        }
+
+        #container {
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        #header img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #sidebar {
+            width: 20%;
+            float: left;
+        }
+
+        #main {
+            width: 78%;
+            float: right;
+            padding: 10px;
+        }
+
+        .product {
+            float: left;
+            width: 23%;
+            min-height: 200px;
+            border: 1px solid red;
+            margin: 1%;
+            padding: 15px;
+        }
+
+        .clear {
+            clear: both;
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media screen and (max-width: 900px) {
+            #sidebar {
+                width: 100%;
+                float: none;
+            }
+
+            #main {
+                width: 100%;
+                float: none;
+            }
+
+            .product {
+                width: 48%;
+                margin: 1%;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .product {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="header">
+            <img src="http://www.ksuowls.com/common/controls/image_handler.aspx?thumb_id=0&image_path=/images/2016/8/10/Header_42.png" alt="Header image" />
+        </div>
+
+        <div id="sidebar">
+            some content on the side here
+            <p>.</p>
+        </div>
+
+        <div id="main">
+            <div class="product">some introduction of player 1 here.</div>
+            <div class="product">Player n</div>
+            <div class="product">Player n</div>
+            <div class="product">Player n</div>
+            <div class="product">Player n</div>
+            <div class="product">Player n</div>
+            <div class="product">Player n</div>
+            <div class="product">Player n</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+</body>
+</html>

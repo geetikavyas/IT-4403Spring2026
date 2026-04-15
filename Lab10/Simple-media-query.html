@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Query Test</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: white;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        /* a) Screen width between 400px and 600px */
+        @media screen and (min-width: 400px) and (max-width: 600px) {
+            body {
+                background-color: lightblue;
+            }
+        }
+
+        /* b) Portrait orientation and width < 640px */
+        @media screen and (orientation: portrait) and (max-width: 640px) {
+            body {
+                background-color: lightgreen;
+            }
+        }
+
+        /* c) Aspect ratio narrower than 16:9 and width between 480px–960px */
+        @media screen and (min-width: 480px) and (max-width: 960px) and (max-aspect-ratio: 16/9) {
+            body {
+                background-color: lightcoral;
+            }
+        }
+
+        /* d) Same styles for print AND screen width < 480px */
+        @media print, screen and (max-width: 480px) {
+            body {
+                background-color: lightgray;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Media Query Test Page</h1>
+    <p>Resize your browser window or rotate your device to see changes.</p>
+    <p>Try printing the page to test print styles.</p>
+
+</body>
+</html>

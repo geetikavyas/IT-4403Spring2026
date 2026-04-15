@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flexible Grid</title>
+
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        div {
+            border: 2px solid blue;
+            margin: 2px;
+            padding: 10px;
+        }
+
+        #container {
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        #sidebar {
+            width: 22%;
+            float: left;
+        }
+
+        #main {
+            width: 77%;
+            float: right;
+        }
+
+        #footer {
+            clear: both;
+        }
+
+        @media screen and (max-width: 768px) {
+            #sidebar,
+            #main {
+                width: 100%;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="header">header</div>
+        <div id="sidebar">
+            side
+            <p>.</p>
+        </div>
+        <div id="main">
+            main page content.
+            <p>main page content.</p>
+            <p>main page content.</p>
+        </div>
+        <div id="footer">footer</div>
+    </div>
+
+</body>
+</html>
