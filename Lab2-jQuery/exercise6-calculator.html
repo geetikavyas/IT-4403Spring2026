@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 6: jQuery Calculator Application</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#calculate").click(function () {
+
+                let firstValue = $("#number1").val().trim();
+                let secondValue = $("#number2").val().trim();
+                let operation = $("#operation").val();
+                let color = $("#resultColor").val().trim();
+
+                $("#error").text("");
+                $("#result").text("");
+
+                if (firstValue === "" || secondValue === "") {
+                    $("#error").text(
+                        "Both number fields are required."
+                    );
+
+                    return;
+                }
+
+                let number1 = Number(firstValue);
+                let number2 = Number(secondValue);
+
+                if (isNaN(number1) || isNaN(number2)) {
+                    $("#error").text(
+                        "Please enter valid numeric values."
+                    );
+
+                    return;
+                }
+
+                if (operation === "/" && number2 === 0) {
+                    $("#error").text(
+                        "Division by zero is not allowed."
+                    );
+
+                    return;
+                }
+
+                let answer;
+
+                if (operation === "+") {
+                    answer = number1 + number2;
+                } else if (operation === "-") {
+                    answer = number1 - number2;
+                } else if (operation === "*") {
+                    answer = number1 * number2;
+                } else if (operation === "/") {
+                    answer = number1 / number2;
+                }
+
+                $("#result")
+                    .text("Result: " + answer)
+                    .css(
+                        "color",
+                        color || "black"
+                    );
+
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Exercise 6: jQuery Calculator Application</h1>
+
+    <p>
+        This exercise combines jQuery form input, event handling, calculations, validation, DOM updates, and CSS changes.
+        Focus on validating user input before performing and displaying the selected calculation.
+    </p>
+
+    <label for="number1">
+        First Number:
+    </label>
+
+    <input type="text" id="number1">
+
+    <br>
+
+    <label for="number2">
+        Second Number:
+    </label>
+
+    <input type="text" id="number2">
+
+    <br>
+
+    <label for="operation">
+        Operation:
+    </label>
+
+    <select id="operation">
+        <option value="+">
+            Addition (+)
+        </option>
+
+        <option value="-">
+            Subtraction (-)
+        </option>
+
+        <option value="*">
+            Multiplication (*)
+        </option>
+
+        <option value="/">
+            Division (/)
+        </option>
+    </select>
+
+    <br>
+
+    <label for="resultColor">
+        Result Color:
+    </label>
+
+    <input
+        type="text"
+        id="resultColor"
+        placeholder="red, blue, green"
+    >
+
+    <br>
+
+    <button id="calculate">
+        Calculate
+    </button>
+
+    <p id="error"></p>
+
+    <h2 id="result"></h2>
+
+    <p>
+        <a href="index.html">
+            Back to Lab 2
+        </a>
+    </p>
+
+</body>
+</html>

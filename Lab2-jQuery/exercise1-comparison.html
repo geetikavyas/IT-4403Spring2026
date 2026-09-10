@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 1: JavaScript and jQuery Comparison</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Calculation and output
+            let x = 10;
+            let y = 4.5;
+
+            $("#calculationResult").html(
+                "<p>x = " + x + ", y = " + y + "</p>" +
+                "<p>x + y = " + (x + y) + "</p>" +
+                "<p>x - y = " + (x - y) + "</p>" +
+                "<p>x * y = " + (x * y) + "</p>" +
+                "<p>x / y = " + (x / y) + "</p>"
+            );
+
+            // Loop
+            for (let i = 1; i <= 5; i++) {
+                $("#loopList").append(
+                    "<li>List Item " + i + "</li>"
+                );
+            }
+
+            // Function
+            function createList(level) {
+                for (let i = 1; i <= level; i++) {
+                    $("#functionList").append(
+                        "<li>Item " + i + "</li>"
+                    );
+                }
+            }
+
+            createList(5);
+
+            // DOM access
+            $("#showDOM").click(function () {
+                let text = $("#sampleLink").text();
+                let href = $("#sampleLink").attr("href");
+
+                $("#domResult").html(
+                    "Link text: " + text +
+                    "<br>Link URL: " + href
+                );
+            });
+
+            // Click event
+            $("#gradeButton").click(function () {
+                let score = Number($("#score").val());
+                let grade;
+
+                if (score >= 90) {
+                    grade = "A";
+                } else if (score >= 80) {
+                    grade = "B";
+                } else if (score >= 70) {
+                    grade = "C";
+                } else {
+                    grade = "F";
+                }
+
+                $("#gradeResult").text(
+                    "Score: " + score + " | Grade: " + grade
+                );
+            });
+
+            // CSS manipulation
+            $("#styleButton").click(function () {
+                $("#styleResult").css({
+                    "background-color": "lightblue",
+                    "font-size": "24px",
+                    "border": "3px solid black",
+                    "padding": "15px"
+                });
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Exercise 1: JavaScript and jQuery Comparison</h1>
+
+    <p>
+        This exercise compares traditional JavaScript with jQuery for common programming tasks.
+        Focus on how jQuery changes the syntax and structure used for DOM access, events, output, and CSS manipulation.
+    </p>
+
+    <h2>Calculation and Output</h2>
+    <div id="calculationResult"></div>
+
+    <h2>Loop</h2>
+    <ul id="loopList"></ul>
+
+    <h2>Function</h2>
+    <ul id="functionList"></ul>
+
+    <h2>DOM Access</h2>
+
+    <a id="sampleLink" href="https://www.kennesaw.edu/">
+        Kennesaw State University
+    </a>
+
+    <br>
+
+    <button id="showDOM">
+        Read Link Information
+    </button>
+
+    <p id="domResult"></p>
+
+    <h2>Click Event</h2>
+
+    <label for="score">
+        Enter Score:
+    </label>
+
+    <input type="number" id="score">
+
+    <button id="gradeButton">
+        Calculate Grade
+    </button>
+
+    <p id="gradeResult"></p>
+
+    <h2>CSS Manipulation</h2>
+
+    <button id="styleButton">
+        Change Style
+    </button>
+
+    <p id="styleResult">
+        jQuery can dynamically change CSS properties.
+    </p>
+
+    <p>
+        <a href="index.html">
+            Back to Lab 2
+        </a>
+    </p>
+
+</body>
+</html>

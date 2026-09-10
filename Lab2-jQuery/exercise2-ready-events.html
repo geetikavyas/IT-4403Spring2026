@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 2: jQuery ready() and Event Handling</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#button1").click(function () {
+                $("#paragraph1").hide();
+            });
+
+            $("#button2").click(function () {
+                $("#paragraph2").hide();
+            });
+
+            $("#restore").click(function () {
+                $("#paragraph1, #paragraph2").show();
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Exercise 2: jQuery ready() and Event Handling</h1>
+
+    <p>
+        This exercise demonstrates how jQuery attaches event handlers after the page is ready.
+        Focus on how individual buttons can control specific elements and why the ready event is useful.
+    </p>
+
+    <p id="paragraph1">
+        This is the first paragraph.
+    </p>
+
+    <p id="paragraph2">
+        This is the second paragraph.
+    </p>
+
+    <button id="button1">
+        Hide Paragraph 1
+    </button>
+
+    <button id="button2">
+        Hide Paragraph 2
+    </button>
+
+    <button id="restore">
+        Restore Paragraphs
+    </button>
+
+    <p>
+        <a href="index.html">
+            Back to Lab 2
+        </a>
+    </p>
+
+</body>
+</html>

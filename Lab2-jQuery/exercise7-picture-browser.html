@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 7: Picture Browser Application</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            const pictures = [
+                {
+                    url: "https://picsum.photos/id/10/600/400",
+                    caption: "Image 1"
+                },
+                {
+                    url: "https://picsum.photos/id/20/600/400",
+                    caption: "Image 2"
+                },
+                {
+                    url: "https://picsum.photos/id/30/600/400",
+                    caption: "Image 3"
+                },
+                {
+                    url: "https://picsum.photos/id/40/600/400",
+                    caption: "Image 4"
+                }
+            ];
+
+            let current = 0;
+
+            function displayImage() {
+
+                $("#picture").fadeOut(300, function () {
+
+                    $("#picture")
+                        .attr(
+                            "src",
+                            pictures[current].url
+                        )
+                        .fadeIn(300);
+
+                    $("#caption").text(
+                        pictures[current].caption
+                    );
+
+                    $("#counter").text(
+                        "Image " +
+                        (current + 1) +
+                        " of " +
+                        pictures.length
+                    );
+
+                });
+
+            }
+
+            $("#next").click(function () {
+
+                current++;
+
+                if (current >= pictures.length) {
+                    current = 0;
+                }
+
+                displayImage();
+
+            });
+
+            $("#previous").click(function () {
+
+                current--;
+
+                if (current < 0) {
+                    current = pictures.length - 1;
+                }
+
+                displayImage();
+
+            });
+
+            $("#picture").on("error", function () {
+                $("#caption").text(
+                    "The image could not be loaded."
+                );
+            });
+
+            displayImage();
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Exercise 7: Picture Browser Application</h1>
+
+    <p>
+        This exercise builds a picture browser using a JavaScript array together with jQuery events, DOM updates, and visual effects.
+        Focus on moving through image data and dynamically updating the displayed image, caption, and image counter.
+    </p>
+
+    <div>
+        <img
+            id="picture"
+            src=""
+            alt=""
+            width="600"
+        >
+    </div>
+
+    <h2 id="caption"></h2>
+
+    <p id="counter"></p>
+
+    <button id="previous">
+        Previous
+    </button>
+
+    <button id="next">
+        Next
+    </button>
+
+    <p>
+        <a href="index.html">
+            Back to Lab 2
+        </a>
+    </p>
+
+</body>
+</html>

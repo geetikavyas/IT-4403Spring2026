@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 4: Table Selection and Event Handling</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#styleOdd").click(function () {
+                $("#studentTable tbody tr:odd").css(
+                    "background-color",
+                    "lightgray"
+                );
+            });
+
+            $("#hideOdd").click(function () {
+                $("#studentTable tbody tr:odd").hide();
+            });
+
+            $("#restoreRows").click(function () {
+                $("#studentTable tbody tr").show();
+            });
+
+            $("#studentTable tbody tr").click(function () {
+                $(this).hide();
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Exercise 4: Table Selection and Event Handling</h1>
+
+    <p>
+        This exercise uses jQuery selectors and click events to manipulate table rows.
+        Focus on selecting odd rows, changing their appearance, hiding and restoring rows, and responding to a click on one row.
+    </p>
+
+    <button id="styleOdd">
+        Style Odd Rows
+    </button>
+
+    <button id="hideOdd">
+        Hide Odd Rows
+    </button>
+
+    <button id="restoreRows">
+        Restore Rows
+    </button>
+
+    <table id="studentTable" border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Major</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Alex</td>
+                <td>Information Technology</td>
+                <td>Senior</td>
+            </tr>
+
+            <tr>
+                <td>Jordan</td>
+                <td>Computer Science</td>
+                <td>Junior</td>
+            </tr>
+
+            <tr>
+                <td>Taylor</td>
+                <td>Cybersecurity</td>
+                <td>Senior</td>
+            </tr>
+
+            <tr>
+                <td>Morgan</td>
+                <td>Information Technology</td>
+                <td>Sophomore</td>
+            </tr>
+
+            <tr>
+                <td>Casey</td>
+                <td>Data Science</td>
+                <td>Junior</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        Click an individual row to hide it.
+    </p>
+
+    <p>
+        <a href="index.html">
+            Back to Lab 2
+        </a>
+    </p>
+
+</body>
+</html>

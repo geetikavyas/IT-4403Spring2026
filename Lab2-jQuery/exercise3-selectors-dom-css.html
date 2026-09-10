@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 3: jQuery Selectors, DOM, and CSS</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#changeHeading").click(function () {
+                $("#mainHeading").text(
+                    "Heading Changed with jQuery"
+                );
+            });
+
+            $("#changeClass").click(function () {
+                $(".information").html(
+                    "<strong>Content changed using a class selector.</strong>"
+                );
+            });
+
+            $("#changeParagraphs").click(function () {
+                $("p.practice").css(
+                    "font-size",
+                    "22px"
+                );
+            });
+
+            $("#readAttribute").click(function () {
+                let value = $("#courseLink").attr("href");
+
+                $("#attributeResult").text(
+                    "Current href: " + value
+                );
+            });
+
+            $("#changeAttribute").click(function () {
+                $("#courseLink").attr(
+                    "href",
+                    "https://www.kennesaw.edu/"
+                );
+            });
+
+            $("#hideButton").click(function () {
+                $("#visibilityDemo").hide();
+            });
+
+            $("#showButton").click(function () {
+                $("#visibilityDemo").show();
+            });
+
+            $("#toggleButton").click(function () {
+                $("#visibilityDemo").toggle();
+            });
+
+            $("#cssButton").click(function () {
+                $("#cssDemo").css({
+                    "background-color": "lightgray",
+                    "font-size": "22px",
+                    "border": "3px solid black",
+                    "width": "400px"
+                });
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1 id="mainHeading">
+        Exercise 3: jQuery Selectors, DOM, and CSS
+    </h1>
+
+    <p>
+        This exercise practices selecting elements and changing their content, attributes, visibility, and styles with jQuery.
+        Focus on ID, class, and element selectors and how jQuery manipulates the selected elements.
+    </p>
+
+    <h2>Selectors and DOM Manipulation</h2>
+
+    <p class="information">
+        This paragraph uses a class.
+    </p>
+
+    <p class="practice">
+        This is a practice paragraph.
+    </p>
+
+    <p class="practice">
+        This is another practice paragraph.
+    </p>
+
+    <button id="changeHeading">
+        Change Heading
+    </button>
+
+    <button id="changeClass">
+        Change Class Content
+    </button>
+
+    <button id="changeParagraphs">
+        Change Paragraph Style
+    </button>
+
+    <h2>Attributes</h2>
+
+    <a id="courseLink" href="https://ccse.kennesaw.edu/it/">
+        Course Resource
+    </a>
+
+    <br>
+
+    <button id="readAttribute">
+        Read Attribute
+    </button>
+
+    <button id="changeAttribute">
+        Change Attribute
+    </button>
+
+    <p id="attributeResult"></p>
+
+    <h2>Visibility</h2>
+
+    <p id="visibilityDemo">
+        Show, hide, or toggle this content.
+    </p>
+
+    <button id="hideButton">
+        Hide
+    </button>
+
+    <button id="showButton">
+        Show
+    </button>
+
+    <button id="toggleButton">
+        Toggle
+    </button>
+
+    <h2>CSS Manipulation</h2>
+
+    <p id="cssDemo">
+        Change my CSS properties.
+    </p>
+
+    <button id="cssButton">
+        Change CSS
+    </button>
+
+    <p>
+        <a href="index.html">
+            Back to Lab 2
+        </a>
+    </p>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 5: jQuery Visual Effects</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#hide").click(function () {
+                $("#effectBox").hide();
+            });
+
+            $("#show").click(function () {
+                $("#effectBox").show();
+            });
+
+            $("#toggle").click(function () {
+                $("#effectBox").toggle();
+            });
+
+            $("#fade").click(function () {
+                $("#effectBox").fadeToggle();
+            });
+
+            $("#slide").click(function () {
+                $("#effectBox").slideToggle();
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Exercise 5: jQuery Visual Effects</h1>
+
+    <p>
+        This exercise demonstrates several built-in jQuery effects for showing, hiding, fading, and sliding content.
+        Focus on how different jQuery methods change the visibility and presentation of the same page element.
+    </p>
+
+    <button id="hide">
+        Hide
+    </button>
+
+    <button id="show">
+        Show
+    </button>
+
+    <button id="toggle">
+        Toggle
+    </button>
+
+    <button id="fade">
+        Fade
+    </button>
+
+    <button id="slide">
+        Slide
+    </button>
+
+    <div id="effectBox">
+        <h2>jQuery Effects</h2>
+
+        <p>
+            Use the buttons to demonstrate different jQuery visual effects.
+        </p>
+    </div>
+
+    <p>
+        <a href="index.html">
+            Back to Lab 2
+        </a>
+    </p>
+
+</body>
+</html>
