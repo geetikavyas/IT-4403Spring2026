@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Milestone 1 - Open Library Search Results</title>
+
+  <style>
+    body { margin:0; font-family:Arial, Helvetica, sans-serif; line-height:1.6; background:#fff; color:#222; }
+    .container { max-width:900px; margin:40px auto; padding:20px; }
+    h1 { color:#003366; margin-bottom:10px; }
+    h2 { color:#005a9c; margin-top:24px; border-bottom:2px solid #e0e0e0; padding-bottom:6px; }
+    a { color:#005a9c; text-decoration:underline; }
+    a:hover, a:focus { color:#003366; }
+    .card { border:1px solid #ddd; background:#f9f9f9; border-radius:6px; padding:16px; margin:14px 0; }
+    .row { display:flex; gap:16px; flex-wrap:wrap; }
+    .thumb img { width:120px; height:auto; border:1px solid #ddd; border-radius:4px; }
+    .meta { flex:1; min-width:220px; }
+    .meta p { margin:6px 0; }
+    .small { color:#555; font-size:.95rem; }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Milestone 1: Open Library Search Results</h1>
+    <p><a href="../../index.html">Back to Project Home</a></p>
+
+    <div id="status" class="card" role="status" aria-live="polite">
+      Loading search results...
+    </div>
+
+    <h2 id="resultsHeading" style="display:none;">Results</h2>
+    <div id="results"></div>
+
+    <footer>
+      <p class="small"><strong>Disclaimer:</strong> This is a student website created for course projects in IT 4403 at Kennesaw State University. Content is for educational purposes only.</p>
+    </footer>
+  </div>
+
+  <script>
+    $(function () {
+      const jsonUrl = "openlibrary-search.json";
+
+      $.getJSON(jsonUrl)
+        .done(function (data) {
+          const books = data.docs || [];
+
+          if (!books.length) {
+            $("#status").text("No books found in the JSON file.");
+            return;
+          }
+
+          $("#status").hide();
+          $("#resultsHeading").text("Results (" + books.length + ")").show();
+
+          books.forEach(function (book) {
+            const title = book.title || "No title";
+            const authors = book.author_name ? book.author_name.join(", ") : "Not available";
+            const year = book.first_publish_year || "Not available";
+            const publisher = book.publisher && book.publisher.length
+              ? book.publisher[0]
+              : "Not available";
+            const editions = book.edition_count || "Not available";
+            const isbn = book.isbn && book.isbn.length ? book.isbn[0] : "Not available";
+
+            const $card = $("<article>", { class: "card" });
+            const $row = $("<div>", { class: "row" });
+            const $thumb = $("<div>", { class: "thumb" });
+            const $meta = $("<div>", { class: "meta" });
+
+            if (book.cover_i) {
+              $("<img>", {
+                src: "https://covers.openlibrary.org/b/id/" + book.cover_i + "-M.jpg",
+                alt: "Book cover for " + title
+              }).appendTo($thumb);
+            } else {
+              $("<p>", { class: "small", text: "No cover image." }).appendTo($thumb);
+            }
+
+            $("<h3>", { text: title }).appendTo($meta);
+            $("<p>").append($("<strong>", { text: "Authors: " }))
+              .append(document.createTextNode(authors)).appendTo($meta);
+            $("<p>").append($("<strong>", { text: "First published: " }))
+              .append(document.createTextNode(year)).appendTo($meta);
+            $("<p>").append($("<strong>", { text: "Publisher: " }))
+              .append(document.createTextNode(publisher)).appendTo($meta);
+            $("<p>").append($("<strong>", { text: "Edition count: " }))
+              .append(document.createTextNode(editions)).appendTo($meta);
+            $("<p>").append($("<strong>", { text: "ISBN: " }))
+              .append(document.createTextNode(isbn)).appendTo($meta);
+
+            if (book.key) {
+              const $recordParagraph = $("<p>");
+              $("<strong>", { text: "Open Library record: " }).appendTo($recordParagraph);
+              $("<a>", {
+                href: "https://openlibrary.org" + book.key,
+                target: "_blank",
+                rel: "noopener",
+                text: "View book"
+              }).appendTo($recordParagraph);
+              $recordParagraph.appendTo($meta);
+            }
+
+            $row.append($thumb, $meta);
+            $card.append($row);
+            $("#results").append($card);
+          });
+        })
+        .fail(function () {
+          $("#status").text("Error loading JSON. Check the file name and path.");
+        });
+    });
+  </script>
+</body>
+</html>

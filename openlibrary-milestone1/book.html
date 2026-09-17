@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Milestone 1 - Open Library Single Book</title>
+
+  <style>
+    body { margin:0; font-family:Arial, Helvetica, sans-serif; line-height:1.6; background:#fff; color:#222; }
+    .container { max-width:900px; margin:40px auto; padding:20px; }
+    h1 { color:#003366; margin-bottom:10px; }
+    h2 { color:#005a9c; margin-top:24px; border-bottom:2px solid #e0e0e0; padding-bottom:6px; }
+    a { color:#005a9c; text-decoration:underline; }
+    a:hover, a:focus { color:#003366; }
+    .card { border:1px solid #ddd; background:#f9f9f9; border-radius:6px; padding:16px; margin-top:16px; }
+    .meta p { margin:6px 0; }
+    img { max-width:220px; height:auto; border:1px solid #ddd; border-radius:4px; }
+    .row { display:flex; gap:16px; flex-wrap:wrap; }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Milestone 1: Open Library Single Book</h1>
+    <p><a href="../../index.html">Back to Project Home</a></p>
+
+    <div id="status" class="card" role="status" aria-live="polite">
+      Loading book data...
+    </div>
+
+    <div id="book" class="card" style="display:none;">
+      <div class="row">
+        <div id="cover"></div>
+        <div class="meta">
+          <h2 id="title">Title</h2>
+          <p><strong>Author record:</strong> <span id="authors"></span></p>
+          <p><strong>Publisher:</strong> <span id="publisher"></span></p>
+          <p><strong>Published date:</strong> <span id="publishedDate"></span></p>
+          <p><strong>Page count:</strong> <span id="pageCount"></span></p>
+          <p><strong>ISBN-10:</strong> <span id="isbn10"></span></p>
+          <p><strong>ISBN-13:</strong> <span id="isbn13"></span></p>
+          <p><strong>Open Library record:</strong> <span id="recordLink"></span></p>
+        </div>
+      </div>
+
+      <h2>First Sentence</h2>
+      <p id="firstSentence"></p>
+    </div>
+
+    <footer>
+      <p><strong>Disclaimer:</strong> This is a student website created for course projects in IT 4403 at Kennesaw State University. Content is for educational purposes only.</p>
+    </footer>
+  </div>
+
+  <script>
+    $(function () {
+      const jsonUrl = "openlibrary-book.json";
+
+      $.getJSON(jsonUrl)
+        .done(function (data) {
+          if (!data || !data.title) {
+            $("#status").text("Could not find book details in the JSON file.");
+            return;
+          }
+
+          $("#title").text(data.title);
+          $("#publisher").text(data.publishers ? data.publishers.join(", ") : "Not available");
+          $("#publishedDate").text(data.publish_date || "Not available");
+          $("#pageCount").text(data.number_of_pages || "Not available");
+          $("#isbn10").text(data.isbn_10 ? data.isbn_10.join(", ") : "Not available");
+          $("#isbn13").text(data.isbn_13 ? data.isbn_13.join(", ") : "Not available");
+
+          const sentence = data.first_sentence && data.first_sentence.value
+            ? data.first_sentence.value
+            : "Not available";
+          $("#firstSentence").text(sentence);
+
+          if (data.authors && data.authors.length) {
+            data.authors.forEach(function (author, index) {
+              if (index > 0) {
+                $("#authors").append(document.createTextNode(", "));
+              }
+              const authorUrl = "https://openlibrary.org" + author.key;
+              $("<a>", {
+                href: authorUrl,
+                target: "_blank",
+                rel: "noopener",
+                text: author.key
+              }).appendTo("#authors");
+            });
+          } else {
+            $("#authors").text("Not available");
+          }
+
+          if (data.key) {
+            $("<a>", {
+              href: "https://openlibrary.org" + data.key,
+              target: "_blank",
+              rel: "noopener",
+              text: "View this edition"
+            }).appendTo("#recordLink");
+          } else {
+            $("#recordLink").text("Not available");
+          }
+
+          const coverId = data.covers
+            ? data.covers.find(function (id) { return id > 0; })
+            : null;
+
+          if (coverId) {
+            const coverUrl = "https://covers.openlibrary.org/b/id/" + coverId + "-L.jpg";
+            $("<img>", {
+              src: coverUrl,
+              alt: "Book cover for " + data.title
+            }).appendTo("#cover");
+          } else {
+            $("#cover").text("No cover image available.");
+          }
+
+          $("#status").hide();
+          $("#book").show();
+        })
+        .fail(function () {
+          $("#status").text("Error loading JSON. Check the file name and path.");
+        });
+    });
+  </script>
+</body>
+</html>
