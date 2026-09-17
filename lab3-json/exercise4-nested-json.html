@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 4: Nested JSON Data</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>Exercise 4: Nested JSON Data</h1>
+
+  <div id="student-information"></div>
+
+  <h2>Courses</h2>
+  <ul id="course-list"></ul>
+
+  <p><a href="index.html">Return to Lab 3</a></p>
+
+  <script>
+    const studentData = {
+      name: "Avery Johnson",
+      major: "Information Technology",
+      email: "avery.johnson@example.com",
+      courses: [
+        {
+          code: "IT 4403",
+          title: "Advanced Web and Mobile Applications",
+          creditHours: 3
+        },
+        {
+          code: "IT 4203",
+          title: "Advanced Database Systems",
+          creditHours: 3
+        },
+        {
+          code: "IT 4823",
+          title: "Information Technology Capstone",
+          creditHours: 3
+        }
+      ]
+    };
+
+    $(document).ready(function() {
+      $("#student-information").html(
+        "<p><strong>Name:</strong> " + studentData.name + "</p>" +
+        "<p><strong>Major:</strong> " + studentData.major + "</p>" +
+        "<p><strong>Email:</strong> " + studentData.email + "</p>"
+      );
+
+      $.each(studentData.courses, function(index, course) {
+        const courseText = course.code + ": " + course.title +
+          " (" + course.creditHours + " credit hours)";
+        $("<li>").text(courseText).appendTo("#course-list");
+      });
+    });
+  </script>
+</body>
+</html>

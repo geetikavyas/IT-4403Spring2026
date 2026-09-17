@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 3: Read JSON Values</title>
+</head>
+<body>
+  <h1>Exercise 3: Read JSON Values</h1>
+
+  <h2>First book</h2>
+  <p id="first-book"></p>
+
+  <h2>All books</h2>
+  <ul id="book-list"></ul>
+
+  <p id="book-count"></p>
+  <p><a href="index.html">Return to Lab 3</a></p>
+
+  <script>
+    const bookData = {
+      books: [
+        {
+          title: "Web Development Basics",
+          author: "Maya Lee",
+          price: 29.99
+        },
+        {
+          title: "Modern JavaScript",
+          author: "Daniel Kim",
+          price: 34.50
+        },
+        {
+          title: "Understanding JSON",
+          author: "Sofia Patel",
+          price: 24.95
+        }
+      ]
+    };
+
+    const firstBook = bookData.books[0];
+    document.getElementById("first-book").textContent =
+      "Title: " + firstBook.title +
+      ", Author: " + firstBook.author +
+      ", Price: $" + firstBook.price.toFixed(2);
+
+    const bookList = document.getElementById("book-list");
+
+    bookData.books.forEach(function(book) {
+      const listItem = document.createElement("li");
+      listItem.textContent = book.title + " by " + book.author;
+      bookList.appendChild(listItem);
+    });
+
+    document.getElementById("book-count").textContent =
+      "Total number of books: " + bookData.books.length;
+  </script>
+</body>
+</html>

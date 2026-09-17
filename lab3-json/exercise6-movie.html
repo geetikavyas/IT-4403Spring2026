@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 6: Movie Information Page</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>Exercise 6: Movie Information Page</h1>
+
+  <div id="movie-information">
+    <p>Loading movie information...</p>
+  </div>
+
+  <p><a href="index.html">Return to Lab 3</a></p>
+
+  <script>
+    $.getJSON("movie.json", function(movie) {
+      $("#movie-information").empty();
+
+      $("<h2>").text(movie.title + " (" + movie.year + ")")
+        .appendTo("#movie-information");
+
+      $("<p>").html("<strong>Rating:</strong> " + movie.mpaa_rating)
+        .appendTo("#movie-information");
+
+      $("<p>").html("<strong>Runtime:</strong> " + movie.runtime + " minutes")
+        .appendTo("#movie-information");
+
+      $("<p>").html("<strong>Studio:</strong> " + movie.studio)
+        .appendTo("#movie-information");
+
+      $("<p>").html("<strong>Director:</strong> " + movie.abridged_directors[0].name)
+        .appendTo("#movie-information");
+
+      $("<p>").html("<strong>Theater release:</strong> " + movie.release_dates.theater)
+        .appendTo("#movie-information");
+
+      $("<p>").html("<strong>Critics score:</strong> " + movie.ratings.critics_score + "%")
+        .appendTo("#movie-information");
+
+      $("<p>").html("<strong>Audience score:</strong> " + movie.ratings.audience_score + "%")
+        .appendTo("#movie-information");
+
+      $("<h3>").text("Genres").appendTo("#movie-information");
+      const genreList = $("<ul>").appendTo("#movie-information");
+      $.each(movie.genres, function(index, genre) {
+        $("<li>").text(genre).appendTo(genreList);
+      });
+
+      $("<h3>").text("Synopsis").appendTo("#movie-information");
+      $("<p>").text(movie.synopsis).appendTo("#movie-information");
+
+      $("<h3>").text("Cast").appendTo("#movie-information");
+      const castList = $("<ul>").appendTo("#movie-information");
+      $.each(movie.abridged_cast, function(index, castMember) {
+        const characters = castMember.characters.join(", ");
+        $("<li>").text(castMember.name + " as " + characters).appendTo(castList);
+      });
+    }).fail(function() {
+      $("#movie-information").text("The movie file could not be loaded.");
+    });
+  </script>
+</body>
+</html>

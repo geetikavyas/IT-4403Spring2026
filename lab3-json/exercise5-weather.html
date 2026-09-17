@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 5: Weather JSON</title>
+</head>
+<body>
+  <h1>Exercise 5: Weather JSON</h1>
+
+  <div id="weather-information">
+    <p>Loading weather information...</p>
+  </div>
+
+  <p><a href="index.html">Return to Lab 3</a></p>
+
+  <script>
+    fetch("weather.json")
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error("The weather file could not be loaded.");
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        const temperatureCelsius = data.main.temp - 273.15;
+        const temperatureFahrenheit = temperatureCelsius * 9 / 5 + 32;
+        const condition = data.weather[0];
+
+        const weatherHTML =
+          "<h2>Weather for " + data.name + ", " + data.sys.country + "</h2>" +
+          "<p><strong>Temperature:</strong> " + temperatureFahrenheit.toFixed(1) + "°F</p>" +
+          "<p><strong>Condition:</strong> " + condition.main + "</p>" +
+          "<p><strong>Description:</strong> " + condition.description + "</p>" +
+          "<p><strong>Humidity:</strong> " + data.main.humidity + "%</p>" +
+          "<p><strong>Pressure:</strong> " + data.main.pressure + " hPa</p>" +
+          "<p><strong>Wind speed:</strong> " + data.wind.speed + " m/s</p>" +
+          "<p><strong>Wind direction:</strong> " + data.wind.deg + "°</p>" +
+          "<p><strong>Cloud coverage:</strong> " + data.clouds.all + "%</p>";
+
+        document.getElementById("weather-information").innerHTML = weatherHTML;
+      })
+      .catch(function(error) {
+        document.getElementById("weather-information").textContent = error.message;
+      });
+  </script>
+</body>
+</html>

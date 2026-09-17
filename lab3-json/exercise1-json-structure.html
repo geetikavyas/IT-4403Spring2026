@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 1: JSON Structure Exploration</title>
+</head>
+<body>
+  <h1>Exercise 1: JSON Structure Exploration</h1>
+
+  <p>
+    I examined the JSON document for the Open Library book record
+    <a href="https://openlibrary.org/books/OL7353617M.json">OL7353617M</a>.
+    The main structure is a JSON object containing information about one book.
+  </p>
+
+  <h2>Main keys</h2>
+  <p>
+    Some of the main keys describe the book's title, publication information,
+    contributors, identifiers, links, and other book details.
+  </p>
+
+  <h2>Name/value pair</h2>
+  <pre><code>"title": "Fantastic Mr. Fox"</code></pre>
+
+  <h2>Object</h2>
+  <p>An object uses curly braces and contains related name/value pairs.</p>
+  <pre><code>{
+  "key": "/books/OL7353617M",
+  "title": "Fantastic Mr. Fox"
+}</code></pre>
+
+  <h2>Array</h2>
+  <p>An array stores a collection of values inside square brackets.</p>
+  <pre><code>"publishers": [
+  "Puffin"
+]</code></pre>
+
+  <h2>Nested structure</h2>
+  <p>A nested structure places an object or array inside another object.</p>
+  <pre><code>"first_sentence": {
+  "type": "/type/text",
+  "value": "Down in the valley there were three farms."
+}</code></pre>
+
+  <h2>Overall organization</h2>
+  <p>
+    The book is represented by one main object. Simple properties store text,
+    numbers, or Boolean values. Arrays store collections, and nested objects
+    provide additional details about related information.
+  </p>
+
+  <p><a href="index.html">Return to Lab 3</a></p>
+</body>
+</html>
