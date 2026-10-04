@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lab 5: Part 2</title>
+</head>
+<body>
+    <p>
+    Parts 2 and 3 use the same code. In Part 3, you only change the request URL.     
+    </p>
+    <h1>Open Library: Data Analysis Books</h1>
+
+    <!-- Task 8: Present the results in a simple list. -->
+    <ul id="results"></ul>
+
+    <script>
+        // Task 1: Use the fixed search term data analysis.
+        // Task 2: Use the given endpoint to request up to 10 books.
+        // Task 3: Call the endpoint using fetch().
+        fetch("https://openlibrary.org/search.json?q=data%20analysis&limit=10")
+
+            // Task 4: Convert the response to JSON.
+            .then(response => response.json())
+
+            .then(data => {
+                const results = document.getElementById("results");
+
+                // Task 5: Use a loop to process the docs array.
+                for (const book of data.docs) {
+                    const item = document.createElement("li");
+
+                    // Task 7: Display "Year unavailable" if the year is missing.
+                    const year = book.first_publish_year ?? "Year unavailable";
+
+                    // Task 6: Display each book's title and first publication year.
+                    item.textContent = book.title + " — " + year;
+
+                    // Task 8: Add the book to the list on the webpage.
+                    results.appendChild(item);
+                }
+            });
+        //Change q=data%20analysis to q=web%20development to retrieve different books, and change limit=10 to limit=5 to retrieve fewer books. The fetch, JSON conversion, loop, and display code stay the same.
+    
+    </script>
+</body>
+</html>
