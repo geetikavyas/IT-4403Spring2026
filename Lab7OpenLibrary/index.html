@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IT 4403 Lab 7</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Lab 7: AJAX REST</h1>
+
+  <section>
+    <h2>Task 1: Wikipedia Suggestions</h2>
+    <label for="wiki-input">Word or partial term:</label>
+    <input type="text" id="wiki-input">
+    <button id="wiki-button">Get Suggestions</button>
+    <p id="wiki-message" role="status"></p>
+    <ul id="wiki-results"></ul>
+  </section>
+
+  <section>
+    <h2>Task 2: ZIP Code Lookup</h2>
+    <label for="zip-input">U.S. ZIP code:</label>
+    <input type="text" id="zip-input" maxlength="5">
+    <button class="zip-button" data-method="fetch">Use fetch()</button>
+    <button class="zip-button" data-method="ajax">Use $.ajax()</button>
+    <button class="zip-button" data-method="getJSON">Use $.getJSON()</button>
+    <p id="zip-message" role="status"></p>
+    <div id="zip-results"></div>
+  </section>
+
+  <section>
+    <h2>Task 3: Open Library Search</h2>
+    <label for="book-input">Title or keyword:</label>
+    <input type="text" id="book-input">
+    <button id="book-button">Search Books</button>
+    <p id="book-message" role="status"></p>
+    <div id="book-results"></div>
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
