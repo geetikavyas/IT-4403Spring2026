@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif;
+  color: black;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+section { margin-bottom: 30px; }
+.book { border-bottom: 1px solid black; padding: 12px 0; }
+img { display: block; max-width: 120px; margin: 8px 0; }
+button, input { padding: 6px; margin: 3px; }
+#details { overflow-wrap: anywhere; }

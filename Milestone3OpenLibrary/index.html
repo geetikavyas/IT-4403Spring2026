@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Milestone 3: Book Search</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Open Library Book Search</h1>
+  <p id="status" role="status"></p>
+
+  <section>
+    <h2>Search</h2>
+    <form id="search-form">
+      <label for="search-term">Title or keywords:</label>
+      <input id="search-term" type="text">
+      <button type="submit">Search</button>
+    </form>
+    <h2>Search Results</h2>
+    <p id="search-message" role="status">Enter a title or keywords.</p>
+    <div id="results"></div>
+    <nav id="pagination" aria-label="Search result pages"></nav>
+  </section>
+
+  <section>
+    <h2>Selected-Book Details</h2>
+    <div id="details" aria-live="polite">Select a book to view its details.</div>
+  </section>
+
+  <section>
+    <h2>Collection: Science Fiction</h2>
+    <p id="collection-message" role="status"></p>
+    <div id="collection"></div>
+    <button id="reload-collection" type="button">Reload collection</button>
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
