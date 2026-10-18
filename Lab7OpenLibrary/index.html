@@ -9,8 +9,24 @@
 <body>
   <h1>Lab 7: AJAX REST</h1>
 
+  <p>
+    These examples retrieve JSON data from public APIs and display results
+    without reloading the page. Practice only. No submission required.
+  </p>
+
   <section>
     <h2>Task 1: Wikipedia Suggestions</h2>
+
+    <p>
+      Enter a word or partial term and click Get Suggestions to retrieve
+      up to five matching Wikipedia article titles. Click a suggestion
+      to open its article.
+    </p>
+    <p>
+      This task uses jQuery AJAX and demonstrates how to match titles
+      and URLs stored in separate JSON arrays.
+    </p>
+
     <label for="wiki-input">Word or partial term:</label>
     <input type="text" id="wiki-input">
     <button id="wiki-button">Get Suggestions</button>
@@ -20,6 +36,17 @@
 
   <section>
     <h2>Task 2: ZIP Code Lookup</h2>
+
+    <p>
+      Enter a five-digit U.S. ZIP code. Choose Use fetch(), Use $.ajax(),
+      or Use $.getJSON() to retrieve its location information.
+      All three methods request the same data and display the same results.
+    </p>
+    <p>
+      This task demonstrates different request methods, nested JSON arrays,
+      and property names containing spaces. All returned places are displayed.
+    </p>
+
     <label for="zip-input">U.S. ZIP code:</label>
     <input type="text" id="zip-input" maxlength="5">
     <button class="zip-button" data-method="fetch">Use fetch()</button>
@@ -31,12 +58,29 @@
 
   <section>
     <h2>Task 3: Open Library Search</h2>
+
+    <p>
+      Enter a book title or keyword and click Search Books to display
+      up to five matching books with their titles, authors, first
+      publication years, and edition counts.
+    </p>
+    <p>
+      This task uses jQuery AJAX and demonstrates processing an array
+      of book records and displaying fallback text for missing information.
+    </p>
+
     <label for="book-input">Title or keyword:</label>
     <input type="text" id="book-input">
     <button id="book-button">Search Books</button>
     <p id="book-message" role="status"></p>
     <div id="book-results"></div>
   </section>
+
+  <p>
+    For each task, observe how results update without reloading the page.
+    Try empty input and searches with no matches to examine the messages.
+    Use Developer Tools to inspect requests, JSON responses, and CORS headers.
+  </p>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="app.js"></script>
